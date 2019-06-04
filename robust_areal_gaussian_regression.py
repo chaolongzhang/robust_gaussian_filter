@@ -47,7 +47,7 @@ class RobustAralGaussianRegression(object):
         return A
 
     # eq.19
-    async def caculateAij_fast(self, i, j):
+    def caculateAij_fast(self, i, j):
         logging.debug('start caculateAij_fast...')
         X, Y = self.delta.shape
         A = np.zeros_like(self.delta)
@@ -183,11 +183,12 @@ class RobustAralGaussianRegression(object):
             moniter.end()
             print('time: ', moniter.desc())
 
+            show3d_surface(self.measured_data)
+            show3d_surface(self.w)
             d = abs((Cb0 - Cb1) / (Cb0 + 1E-10))
             print('difference between c:', d)
             if d > self.STOP:
                 break
-
             waitkey()
             Cb0 = Cb1
             self.update_delta(Cb0)
