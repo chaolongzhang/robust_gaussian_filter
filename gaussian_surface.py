@@ -16,9 +16,9 @@ def traditional_gaussian_1d():
 
 # eq.(3)
 def traditional_gaussian_2d():
-    data = load_measured_data()
+    data = generate_2d()
     # kernel = guass2d()
-    kernel = guass2d_sp()
+    kernel = guass2d_sp(3, 3)
     mean_surface = signal.convolve2d(data, kernel, boundary='fill', mode='same')
 
     show3d_surface(data)

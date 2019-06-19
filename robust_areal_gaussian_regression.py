@@ -29,9 +29,9 @@ class RobustAralGaussianRegression(object):
         self.delta = np.ones_like(self.measured_data)
 
     def update_delta(self, c):
-        idx = self.w > c
+        # idx = self.w > c
         self.delta = (1 - (self.w / c) ** 2) ** 2
-        self.delta[idx] = 0
+        # self.delta[idx] = 0
 
     # eq.17
     def caculateAij(self, i, j):
@@ -157,10 +157,13 @@ class RobustAralGaussianRegression(object):
         logging.debug('start solve linear equation...')
         n, m = A.shape
         # if n == m:
-            # X = linalg.solve(A, F)
+        # X = linalg.solve(A, F)
         # else:
         X = linalg.lstsq(A, F)[0]
         self.w = X[0: self.measured_data.shape[0], :]
+        print(A)
+        print(F)
+        print(X)
         logging.debug('finished solve linear equation...')
 
     def MAD(self):
@@ -183,8 +186,8 @@ class RobustAralGaussianRegression(object):
             moniter.end()
             print('time: ', moniter.desc())
 
-            show3d_surface(self.measured_data)
-            show3d_surface(self.w)
+            # show3d_surface(self.measured_data)
+            # show3d_surface(self.w)
             d = abs((Cb0 - Cb1) / (Cb0 + 1E-10))
             print('difference between c:', d)
             if d > self.STOP:
@@ -195,8 +198,8 @@ class RobustAralGaussianRegression(object):
 
 
 def main():
-    # measured_data = generate_2d()
-    measured_data = load_measured_data()
+    measured_data = generate_2d()
+    # measured_data = load_measured_data()
     gr = RobustAralGaussianRegression(measured_data)
     gr.run()
 

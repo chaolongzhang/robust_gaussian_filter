@@ -8,8 +8,9 @@ def generate_1d_sine(points = 1000):
     return y
 
 def generate_2d():
-    # data = np.random.randn(3, 4)
-    data = np.ones((3, 3))
+    data = np.zeros((3, 3))
+    for i in range(3):
+        data[i, :] = generate_1d_sine(3)
     return data
 
 def load_assi_data(filename):
@@ -94,11 +95,12 @@ def load_data(filename):
 
 def load_measured_data():
     filename = "data/DemoSteel.sdf"
+    # filename = "data/HipHeaddemo.sdf"
     data = load_data(filename)
     return data
 
 if __name__ == '__main__':
     from visualization import *
-    data = load_measured_data()
+    data = generate_2d()
     show3d_surface(data)
     waitkey()
